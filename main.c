@@ -1,3 +1,4 @@
+#include <OpenGL/gltypes.h>
 #include <SDL2/SDL.h>
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
@@ -21,6 +22,8 @@ const GLchar *vertex_shader_source =
     "uniform mat4 model;\n"
     "uniform mat4 view;\n"
     "uniform mat4 projection;\n"
+    "uniform int width;\n"
+    "uniform int height;\n"
     "void main()\n"
     "{\n"
     "    gl_Position = projection * view * model * vec4(position, 1.0);\n"
@@ -35,9 +38,14 @@ const GLchar *fragment_shader_source =
     "in vec2 our_tex_coord;\n"
     "out vec4 color;\n"
     "uniform sampler2D texture1;\n"
+    "uniform int width;\n"
+    "uniform int height;\n"
     "void main()\n"
     "{\n"
-    "    color = texture(texture1, our_tex_coord) * vec4(our_color, 1.0);\n"
+    "    vec2 resolution = vec2(width, height);\n"
+    "    vec2 block_size = resolution / 3.4;\n"
+    "    vec2 uv = floor((our_tex_coord + 0.5) * block_size) / block_size - 0.5;\n"
+    "    color = texture(texture1, uv) * vec4(our_color, 1.0);\n"
     "}\n";
 
 void sdl_die(const char *message) {
@@ -72,6 +80,11 @@ void process_input(SDL_Event *event, int *running) {
 void setup_matrix(GLuint shader_program, const char *name, float *matrix) {
   GLuint location = glGetUniformLocation(shader_program, name);
   glUniformMatrix4fv(location, 1, GL_FALSE, matrix);
+}
+
+void setup_int(GLuint shader, const char *name, int num) {
+  GLuint location = glGetUniformLocation(shader, name);
+  glUniform1i(location, num);
 }
 
 void multiply_matrices(float *result, const float *mat1, const float *mat2) {
@@ -168,9 +181,6 @@ float *load_vertices(int *size) {
   for (int i = 0; i < mesh->mNumVertices; i++) {
     struct aiVector3D vert = mesh->mVertices[i],
                       tex = mesh->mTextureCoords[0][i];
-
-    printf("line: %d; %f, %f, %f\n", i, vert.x, vert.y, vert.z);
-    printf("%f %f\n", tex.x, tex.y);
 
     vertices[i * 8 + 0] = vert.x;
     vertices[i * 8 + 1] = vert.y;
@@ -437,6 +447,12 @@ int main(int argc, char *argv[]) {
     setup_matrix(shader_program, "model", model);
     setup_matrix(shader_program, "view", view);
     setup_matrix(shader_program, "projection", projection);
+
+    int x, y;
+    SDL_GetWindowSize(window, &x, &y);
+
+    setup_int(shader_program, "width", x);
+    setup_int(shader_program, "height", y);
 
     // Bind texture
     glActiveTexture(GL_TEXTURE0);
