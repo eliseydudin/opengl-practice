@@ -171,7 +171,7 @@ const struct aiScene *scene;
 struct aiMesh *mesh;
 
 float *load_vertices(int *size) {
-  scene = aiImportFile("cube.obj", aiProcess_Triangulate | aiProcess_FlipUVs);
+  scene = aiImportFile("model.obj", aiProcess_Triangulate | aiProcess_FlipUVs);
   mesh = scene->mMeshes[0];
 
   *size = mesh->mNumVertices;
@@ -330,7 +330,7 @@ int main(int argc, char *argv[]) {
   free(vertices);
 
   // Load and create a texture
-  GLuint texture = load_texture("SILLY.png");
+  GLuint texture = load_texture("texture.png");
   glUseProgram(shader_program);
   glUniform1i(
       glGetUniformLocation(shader_program, "texture1"),
