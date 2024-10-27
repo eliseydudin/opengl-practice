@@ -4,6 +4,7 @@
 .DS_Store
 # Random textures I use for debugging
 *.png
+!images/*.png
 # Random models
 *.obj
 # The STB Image Header, used for loading images

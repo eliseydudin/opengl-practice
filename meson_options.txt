@@ -1,5 +1,12 @@
+option('minimal',
+  type : 'boolean',
+  value : false,
+  description : 'Run the minimal example'
+)
+
+
 option('sandwich',
   type : 'boolean',
-  value : true,
+  value : false,
   description : 'Run the sandwich example'
 )
