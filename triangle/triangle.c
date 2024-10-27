@@ -5,15 +5,19 @@
 const char *vertex_shader_source =
     "#version 410 core\n"
     "in vec2 position;\n"
+    "in vec3 color;\n"
+    "out vec3 fragment_color;\n"
     "void main() {\n"
     "    gl_Position = vec4(position, 1.0, 1.0);\n"
+    "    fragment_color = color;\n"
     "}\n";
 
 const char *fragment_shader_source =
     "#version 410 core\n"
+    "in vec3 fragment_color;\n"
     "out vec4 color;\n"
     "void main() {\n"
-    "    color = vec4(1.0);\n"
+    "    color = vec4(fragment_color, 1.0);\n"
     "}\n";
 
 GLuint compile_shader(GLenum shader_type, const char *source) {
@@ -84,8 +88,32 @@ int main(int argc, const char *argv[]) {
       1
   ); // Set the clear color to #493657
 
-  // Each pair represents a vec2
-  float triangle_data[] = {0.0f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f};
+  // data is stored as position & color
+  float triangle_data[] = {
+      0.0f,
+      0.5f,
+
+      // #FFD1BA
+      1.0f,
+      0.819f,
+      0.729f,
+
+      0.5f,
+      -0.5f,
+
+      // #CE7DA5
+      0.807f,
+      0.490f,
+      0.647f,
+
+      -0.5f,
+      -0.5f,
+
+      // #BEE5BF
+      0.745f,
+      0.8980f,
+      0.749f,
+  };
 
   // Create the vertex array object
   GLuint vao;
@@ -107,10 +135,28 @@ int main(int argc, const char *argv[]) {
   GLuint program = create_shader();
   glUseProgram(program);
 
-  // Enable position attribute
+  // Enable position & color attributes
   GLint position_attribute = glGetAttribLocation(program, "position");
-  glVertexAttribPointer(position_attribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(position_attribute);
+  glVertexAttribPointer(
+      position_attribute,
+      2,
+      GL_FLOAT,
+      GL_FALSE,
+      5 * sizeof(float),
+      0
+  );
+
+  GLint color_attribute = glGetAttribLocation(program, "color");
+  glEnableVertexAttribArray(color_attribute);
+  glVertexAttribPointer(
+      color_attribute,
+      3,
+      GL_FLOAT,
+      GL_FALSE,
+      5 * sizeof(float),
+      (void *) (2 * sizeof(float))
+  );
 
   // Main loop
   SDL_bool running = SDL_TRUE;
