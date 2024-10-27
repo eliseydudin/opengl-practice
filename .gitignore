@@ -1,6 +1,16 @@
+# VSCode settings
 .vscode/
+# macOS directory data
 .DS_Store
-main
+# Random textures I use for debugging
 *.png
+# Random models
 *.obj
+# The STB Image Header, used for loading images
 stbi.h
+# Clang cache
+.cache
+# Meson builddir
+builddir/
+# Clang compile commands (used by clangd)
+compile_commands.json

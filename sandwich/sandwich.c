@@ -1,4 +1,3 @@
-#include <OpenGL/gltypes.h>
 #include <SDL2/SDL.h>
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
@@ -9,7 +8,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "stbi.h" // Include stb_image.h for texture loading
+#include "../stbi.h" // Include stb_image.h for texture loading
 
 // Vertex Shader Source Code
 const GLchar *vertex_shader_source =

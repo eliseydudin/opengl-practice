@@ -1,0 +1,5 @@
+option('sandwich',
+  type : 'boolean',
+  value : true,
+  description : 'Run the sandwich example'
+)
