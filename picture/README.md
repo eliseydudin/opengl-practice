@@ -1,4 +1,5 @@
-# Triangle
-The Triangle program is like OpenGL's Hello World. It is the same here but with fancier colors.
+# Picture
+A moving picture (use WASD for movement).
+This example requires a `picture.png` file.
 
-![image](https://github.com/eliseydudin/opengl-practice/blob/main/images/triangle.png)
+![image](https://github.com/eliseydudin/opengl-practice/blob/main/images/picture.gif)
