@@ -71,7 +71,7 @@ int main(int argc, const char *argv[]) {
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   SDL_Window *window = SDL_CreateWindow(
-      "Minimal",
+      "Triangle",
       SDL_WINDOWPOS_CENTERED,
       SDL_WINDOWPOS_CENTERED,
       640,
