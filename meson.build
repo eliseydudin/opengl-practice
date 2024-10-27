@@ -8,6 +8,10 @@ dependencies = [
 
 if get_option('sandwich')
     subdir('sandwich')
-elif get_option('minimal')
+endif
+if get_option('minimal')
     subdir('minimal')
+endif
+if get_option('triangle')
+    subdir('triangle')
 endif

@@ -1,12 +1,17 @@
 option('minimal',
   type : 'boolean',
-  value : false,
+  value : true,
   description : 'Run the minimal example'
 )
 
-
 option('sandwich',
   type : 'boolean',
-  value : false,
+  value : true,
   description : 'Run the sandwich example'
+)
+
+option('triangle',
+  type : 'boolean',
+  value : true,
+  description : 'Run the triangle example'
 )
