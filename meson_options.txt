@@ -15,3 +15,9 @@ option('triangle',
   value : true,
   description : 'Run the triangle example'
 )
+
+option('picture',
+  type : 'boolean',
+  value : true,
+  description : 'Run the picture example'
+)
