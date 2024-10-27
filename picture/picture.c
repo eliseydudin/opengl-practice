@@ -1,3 +1,7 @@
+#include <stdint.h>
+
+#include "SDL_keyboard.h"
+#include "SDL_timer.h"
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
 #include <SDL2/SDL.h>
@@ -10,8 +14,12 @@ const char *vertex_shader_source =
     "in vec3 color;\n"
     "out vec2 frag_pos;\n"
     "out vec3 fragment_color;\n"
+
+    "uniform float pos_x;\n"
+    "uniform float pos_y;\n"
+
     "void main() {\n"
-    "    gl_Position = vec4(position, 1.0, 1.0);\n"
+    "    gl_Position = vec4(position + vec2(pos_x, pos_y), 1.0, 1.0);\n"
     "    fragment_color = color;\n"
     "    frag_pos = position;\n"
     "}\n";
@@ -115,7 +123,7 @@ int main(int argc, const char *argv[]) {
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   SDL_Window *window = SDL_CreateWindow(
-      "Triangle",
+      "Picture",
       SDL_WINDOWPOS_CENTERED,
       SDL_WINDOWPOS_CENTERED,
       640,
@@ -229,6 +237,11 @@ int main(int argc, const char *argv[]) {
   GLuint texture = load_texture("picture.png");
   glUniform1i(glGetUniformLocation(program, "sampler"), 0);
 
+  // The funnies
+  const uint8_t *keyboard = SDL_GetKeyboardState(NULL);
+  float pos_x = 0.0f, pos_y = 0.0f;
+  uint64_t prev = SDL_GetTicks64();
+
   // Main loop
   SDL_bool running = SDL_TRUE;
   SDL_Event event;
@@ -243,7 +256,26 @@ int main(int argc, const char *argv[]) {
       }
     }
 
+    uint64_t curr = SDL_GetTicks64();
+    float delta = (curr - prev) / 1000.0f;
+    prev = curr;
+
+    if (keyboard[SDL_SCANCODE_W]) {
+      pos_y += delta;
+    } else if (keyboard[SDL_SCANCODE_S]) {
+      pos_y -= delta;
+    }
+
+    if (keyboard[SDL_SCANCODE_D]) {
+      pos_x += delta;
+    } else if (keyboard[SDL_SCANCODE_A]) {
+      pos_x -= delta;
+    }
+
     glClear(GL_COLOR_BUFFER_BIT); // Clear the background with color
+
+    glUniform1f(glGetUniformLocation(program, "pos_x"), pos_x);
+    glUniform1f(glGetUniformLocation(program, "pos_y"), pos_y);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
