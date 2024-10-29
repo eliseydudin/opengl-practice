@@ -1,9 +1,11 @@
 #include <stdint.h>
 
-#include "SDL_keyboard.h"
-#include "SDL_timer.h"
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl3.h>
+#ifdef __APPLE__
+  #include <OpenGL/gl3.h>
+#else
+  #include <GL/gl.h>
+#endif
 #include <SDL2/SDL.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stbi.h"

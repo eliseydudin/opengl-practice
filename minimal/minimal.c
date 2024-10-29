@@ -1,5 +1,9 @@
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl.h>
+#ifdef __APPLE__
+  #include <OpenGL/gl3.h>
+#else
+  #include <GL/gl.h>
+#endif
 #include <SDL2/SDL.h>
 
 int main(int argc, const char *argv[]) {

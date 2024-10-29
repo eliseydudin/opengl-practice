@@ -1,6 +1,10 @@
 #include <SDL2/SDL.h>
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl3.h>
+#ifdef __APPLE__
+  #include <OpenGL/gl3.h>
+#else
+  #include <GL/gl.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #define STB_IMAGE_IMPLEMENTATION
