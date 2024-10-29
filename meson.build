@@ -3,7 +3,7 @@ project('opengl-practice', 'c')
 dependencies = [
     dependency('sdl2'),
     dependency('assimp'),
-    dependency('appleframeworks', modules: ['OpenGL']),
+    dependency('GL', method: 'auto')
 ]
 
 if get_option('sandwich')
