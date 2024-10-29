@@ -2,7 +2,21 @@
   #define GL_SILENCE_DEPRECATION
   #include <OpenGL/gl3.h>
 #elif defined(linux)
-  #include <GL/gl.h>
+typedef unsigned int GLenum;
+typedef unsigned char GLboolean;
+typedef unsigned int GLbitfield;
+typedef void GLvoid;
+typedef signed char GLbyte;
+typedef short GLshort;
+typedef int GLint;
+typedef unsigned char GLubyte;
+typedef unsigned short GLushort;
+typedef unsigned int GLuint;
+typedef int GLsizei;
+typedef float GLfloat;
+typedef float GLclampf;
+typedef double GLdouble;
+typedef double GLclampd;
   #include <GL/glext.h>
 #else
   #include <GL/gl.h>
