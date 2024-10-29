@@ -1,12 +1,5 @@
-#include <stdint.h>
-
-#define GL_SILENCE_DEPRECATION
-#ifdef __APPLE__
-  #include <OpenGL/gl3.h>
-#else
-  #include <GL/gl.h>
-#endif
 #include <SDL2/SDL.h>
+#include <stdint.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stbi.h"
 #include "post_processing.h"

@@ -1,8 +1,8 @@
-#ifndef GL_SILENCE_DEPRECATION
+#if defined(__APPLE__)
   #define GL_SILENCE_DEPRECATION
-#endif
-#ifdef __APPLE__
   #include <OpenGL/gl3.h>
+#elif defined(linux)
+  #include <GL/glext.h>
 #else
   #include <GL/gl.h>
 #endif
