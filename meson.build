@@ -21,3 +21,7 @@ endif
 if get_option('picture')
     subdir('picture')
 endif
+
+if get_option('post_processing')
+    subdir('post_processing')
+endif

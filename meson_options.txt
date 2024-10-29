@@ -21,3 +21,9 @@ option('picture',
   value : true,
   description : 'Run the picture example'
 )
+
+option('post_processing',
+  type : 'boolean',
+  value : true,
+  description : 'Run the picture example'
+)
