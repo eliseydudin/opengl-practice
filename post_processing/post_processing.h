@@ -2,6 +2,7 @@
   #define GL_SILENCE_DEPRECATION
   #include <OpenGL/gl3.h>
 #elif defined(linux)
+  #include <GL/gl.h>
   #include <GL/glext.h>
 #else
   #include <GL/gl.h>
