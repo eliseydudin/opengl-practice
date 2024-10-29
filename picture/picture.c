@@ -18,6 +18,7 @@ typedef float GLfloat;
 typedef float GLclampf;
 typedef double GLdouble;
 typedef double GLclampd;
+  #define GL_GLEXT_PROTOTYPES
   #include <GL/glext.h>
 #else
   #include <GL/gl.h>
