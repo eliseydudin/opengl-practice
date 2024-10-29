@@ -1,12 +1,11 @@
 #include <stdint.h>
 
-#include "SDL_keyboard.h"
-#include "SDL_timer.h"
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
 #include <SDL2/SDL.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stbi.h"
+#include "post_processing.h"
 
 const char *vertex_shader_source =
     "#version 410 core\n"
@@ -72,48 +71,6 @@ GLuint load_texture(const char *path) {
   return texture;
 }
 
-GLuint compile_shader(GLenum shader_type, const char *source) {
-  GLuint shader = glCreateShader(shader_type);
-  glShaderSource(shader, 1, &source, NULL);
-  glCompileShader(shader);
-
-  GLint success;
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    GLchar info_log[512];
-    glGetShaderInfoLog(shader, 512, NULL, info_log);
-    printf("Shader compilation failed\n%s\n", info_log);
-    exit(1);
-  }
-
-  return shader;
-}
-
-GLuint create_shader() {
-  GLuint vertex_shader = compile_shader(GL_VERTEX_SHADER, vertex_shader_source);
-  GLuint fragment_shader =
-      compile_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
-
-  GLuint program = glCreateProgram();
-  glAttachShader(program, vertex_shader);
-  glAttachShader(program, fragment_shader);
-  glLinkProgram(program);
-
-  GLint success;
-  glGetProgramiv(program, GL_LINK_STATUS, &success);
-  if (!success) {
-    GLchar info_log[512];
-    glGetProgramInfoLog(program, 512, NULL, info_log);
-    printf("Shader linking failed\n%s\n", info_log);
-    exit(1);
-  }
-
-  glDeleteShader(vertex_shader);
-  glDeleteShader(fragment_shader);
-
-  return program;
-}
-
 int main(int argc, const char *argv[]) {
   SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -123,12 +80,12 @@ int main(int argc, const char *argv[]) {
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   SDL_Window *window = SDL_CreateWindow(
-      "Picture",
+      "Post Processing",
       SDL_WINDOWPOS_CENTERED,
       SDL_WINDOWPOS_CENTERED,
       640,
       480,
-      SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
+      SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
   );
   SDL_GLContext context = SDL_GL_CreateContext(window);
 
@@ -208,7 +165,7 @@ int main(int argc, const char *argv[]) {
   );
 
   // Start using the shaders defined at the start of the file
-  GLuint program = create_shader();
+  program = create_shader(vertex_shader_source, fragment_shader_source);
   glUseProgram(program);
 
   // Enable position & color attributes
@@ -236,6 +193,8 @@ int main(int argc, const char *argv[]) {
 
   GLuint texture = load_texture("picture.png");
   glUniform1i(glGetUniformLocation(program, "sampler"), 0);
+
+  init_post_processing();
 
   // The funnies
   const uint8_t *keyboard = SDL_GetKeyboardState(NULL);
@@ -272,21 +231,36 @@ int main(int argc, const char *argv[]) {
       pos_x -= delta;
     }
 
+    post_processing_begin();
     glClear(GL_COLOR_BUFFER_BIT); // Clear the background with color
 
     glUniform1f(glGetUniformLocation(program, "pos_x"), pos_x);
     glUniform1f(glGetUniformLocation(program, "pos_y"), pos_y);
 
-    glActiveTexture(GL_TEXTURE0);
+    //glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
 
     // Rendering
+    glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    post_processing_end();
 
     SDL_GL_SwapWindow(window); // Swap window buffers
     // Delay so that there's at least some time between frames
     SDL_Delay(1);
+
+    GLuint err = glGetError();
+    if (err != 0) {
+      printf("%u\n", glGetError());
+      running = SDL_FALSE;
+    }
   }
+
+  printf("post_processing_shader: %u\n", post_processing_shader);
+  printf("other program: %u\n", program);
+
+  post_processing_cleanup();
 
   // Quit from OpenGL
   glDeleteTextures(1, &texture);
