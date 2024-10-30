@@ -1,29 +1,7 @@
-#include <stdint.h>
-#if defined(__APPLE__)
-  #define GL_SILENCE_DEPRECATION
-  #include <OpenGL/gl3.h>
-#elif defined(linux)
-typedef unsigned int GLenum;
-typedef unsigned char GLboolean;
-typedef unsigned int GLbitfield;
-typedef void GLvoid;
-typedef signed char GLbyte;
-typedef short GLshort;
-typedef int GLint;
-typedef unsigned char GLubyte;
-typedef unsigned short GLushort;
-typedef unsigned int GLuint;
-typedef int GLsizei;
-typedef float GLfloat;
-typedef float GLclampf;
-typedef double GLdouble;
-typedef double GLclampd;
-  #define GL_GLEXT_PROTOTYPES
-  #include <GL/glext.h>
-#else
-  #include <GL/gl.h>
-#endif
 #include <SDL2/SDL.h>
+#include <stdint.h>
+
+#include "../opengl_include.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stbi.h"
 

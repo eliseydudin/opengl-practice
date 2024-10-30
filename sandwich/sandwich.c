@@ -1,28 +1,4 @@
 #include <SDL2/SDL.h>
-#if defined(__APPLE__)
-  #define GL_SILENCE_DEPRECATION
-  #include <OpenGL/gl3.h>
-#elif defined(linux)
-typedef unsigned int GLenum;
-typedef unsigned char GLboolean;
-typedef unsigned int GLbitfield;
-typedef void GLvoid;
-typedef signed char GLbyte;
-typedef short GLshort;
-typedef int GLint;
-typedef unsigned char GLubyte;
-typedef unsigned short GLushort;
-typedef unsigned int GLuint;
-typedef int GLsizei;
-typedef float GLfloat;
-typedef float GLclampf;
-typedef double GLdouble;
-typedef double GLclampd;
-  #define GL_GLEXT_PROTOTYPES
-  #include <GL/glext.h>
-#else
-  #include <GL/gl.h>
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 #define STB_IMAGE_IMPLEMENTATION
@@ -30,6 +6,7 @@ typedef double GLclampd;
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
+#include "../opengl_include.h"
 #include "../stbi.h" // Include stb_image.h for texture loading
 
 // Vertex Shader Source Code
