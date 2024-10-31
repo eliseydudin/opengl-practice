@@ -4,6 +4,10 @@ dependencies = [
     dependency('sdl2'),
 ]
 
+if host_machine.system() == 'linux'
+    add_global_arguments('-lm', language: 'c')
+endif
+
 subdir('glad')
 
 if get_option('sandwich')
