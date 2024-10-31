@@ -51,7 +51,11 @@ const float screen_verts[] = {1.0f, -1.0f, 1.0f,  0.0f, -1.0f, -1.0f,
 
                               1.0f, 1.0f,  1.0f,  1.0f, 1.0f,  -1.0f,
                               1.0f, 0.0f,  -1.0f, 1.0f, 0.0f,  1.0f};
+#ifdef __APPLE__
 const int screen_width = 640 * 2, screen_height = 480 * 2;
+#else
+const int screen_width = 640, screen_height = 480;
+#endif
 GLuint screen_rect_vao, screen_rect_vbo;
 GLuint post_processing_fbo;
 GLuint post_processing_texture;
