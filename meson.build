@@ -2,7 +2,6 @@ project('opengl-practice', 'c')
 
 dependencies = [
     dependency('sdl2'),
-    dependency('assimp'),
 ]
 
 subdir('glad')
