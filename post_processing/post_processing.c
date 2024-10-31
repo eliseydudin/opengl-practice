@@ -47,6 +47,7 @@ GLuint load_texture(const char *path) {
   // Load image
   int width, height, nr_channels;
   unsigned char *data = stbi_load(path, &width, &height, &nr_channels, 0);
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
   if (data) {
     glTexImage2D(
         GL_TEXTURE_2D,
