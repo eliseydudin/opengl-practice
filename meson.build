@@ -6,6 +6,8 @@ dependencies = [
     dependency('GL', method: 'auto')
 ]
 
+subdir('glad')
+
 if get_option('sandwich')
     subdir('sandwich')
 endif
