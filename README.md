@@ -1,6 +1,5 @@
 # OpenGL Practice
 When I started learning OpenGL I found a surprising lack of modern examples. This repository contains random stuff I did in it.
-Currently the repository only works on macOS as its the primary platform I'm working on.
 
 # Dependencies
 The following packages are required:
