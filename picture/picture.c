@@ -1,7 +1,6 @@
 #include <SDL2/SDL.h>
+#include <glad/glad.h>
 #include <stdint.h>
-
-#include "../opengl_include.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stbi.h"
 
@@ -128,6 +127,11 @@ int main(int argc, const char *argv[]) {
       SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
   );
   SDL_GLContext context = SDL_GL_CreateContext(window);
+
+  if (gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress) == 0) {
+    perror("Cannot initialize GLAD\n");
+    return 0;
+  }
 
   // GL stuff
   glClearColor(

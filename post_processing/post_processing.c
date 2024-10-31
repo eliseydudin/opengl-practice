@@ -86,6 +86,11 @@ int main(int argc, const char *argv[]) {
   );
   SDL_GLContext context = SDL_GL_CreateContext(window);
 
+  if (gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress) == 0) {
+    perror("Cannot initialize GLAD\n");
+    return 0;
+  }
+
   // GL stuff
   glClearColor(
       0x49 / 255.0,

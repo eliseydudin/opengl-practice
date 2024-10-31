@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
-
-#include "../opengl_include.h"
+#include <glad/glad.h>
 
 int main(int argc, const char *argv[]) {
   SDL_Init(SDL_INIT_EVERYTHING);
@@ -14,6 +13,11 @@ int main(int argc, const char *argv[]) {
       SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
   );
   SDL_GLContext context = SDL_GL_CreateContext(window);
+
+  if (gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress) == 0) {
+    perror("Cannot initialize GLAD\n");
+    return 0;
+  }
 
   glClearColor(0.0, 0.3, 0.5, 1); // Set the clear color
 

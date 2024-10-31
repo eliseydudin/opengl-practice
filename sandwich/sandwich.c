@@ -5,8 +5,8 @@
 #include <assimp/cimport.h>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
+#include <glad/glad.h>
 
-#include "../opengl_include.h"
 #include "../stbi.h" // Include stb_image.h for texture loading
 
 // Vertex Shader Source Code
@@ -233,6 +233,11 @@ int main(int argc, char *argv[]) {
   SDL_GLContext context = SDL_GL_CreateContext(window);
   if (!context) {
     sdl_die("Couldn't create OpenGL context");
+  }
+
+  if (gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress) == 0) {
+    perror("Cannot initialize GLAD\n");
+    return 0;
   }
 
   // Enable depth testing

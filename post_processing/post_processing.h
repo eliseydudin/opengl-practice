@@ -1,8 +1,7 @@
+#include <glad/glad.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "../opengl_include.h"
 
 GLuint compile_shader(GLenum shader_type, const char *source) {
   GLuint shader = glCreateShader(shader_type);
