@@ -27,3 +27,9 @@ option('post_processing',
   value : true,
   description : 'Run the picture example'
 )
+
+option('scene_3d',
+  type : 'boolean',
+  value : true,
+  description : 'Run the picture example'
+)

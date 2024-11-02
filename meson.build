@@ -29,3 +29,7 @@ endif
 if get_option('post_processing')
     subdir('post_processing')
 endif
+
+if get_option('scene_3d')
+    subdir('scene_3d')
+endif
