@@ -87,6 +87,7 @@ const char *post_processing_fragment =
     "    vec2 uv = floor((out_tex_coords + 0.5) * block_size) / block_size - 0.5;\n"
     "    float color_tmp = texture(screen_texture, uv).x;"
     "    color = vec4(color_tmp);\n"
+    "    color.z += 0.5;\n"
     "}\n";
 ;
 
