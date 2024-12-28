@@ -176,7 +176,7 @@ float *load_vertices(int *size) {
   *size = mesh->mNumVertices;
 
   float *vertices = malloc(sizeof(float) * mesh->mNumVertices * 8);
-  for (int i = 0; i < mesh->mNumVertices; i++) {
+  for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     struct aiVector3D vert = mesh->mVertices[i],
                       tex = mesh->mTextureCoords[0][i];
 
@@ -208,7 +208,7 @@ uint32_t *load_indices(int *size) {
   return indices;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     sdl_die("Couldn't initialize SDL");
   }

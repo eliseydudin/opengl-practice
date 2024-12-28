@@ -69,7 +69,7 @@ GLuint load_texture(const char *path) {
   return texture;
 }
 
-int main(int argc, const char *argv[]) {
+int main(void) {
   SDL_Init(SDL_INIT_EVERYTHING);
 
   // Use the latest (for macOS) version of OpenGL
