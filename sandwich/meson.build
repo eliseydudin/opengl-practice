@@ -1,3 +1,7 @@
 sources = ['sandwich.c']
 
-executable('sandwich', sources, dependencies: dependencies + dependency('assimp'),)
+executable(
+    'sandwich',
+    sources,
+    dependencies: dependencies + dependency('assimp'),
+)

@@ -223,7 +223,7 @@ void rotate_matrix(float *matrix, float angle, float x, float y, float z) {
     matrix[i] = result[i];
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     sdl_die("Couldn't initialize SDL");
   }

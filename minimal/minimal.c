@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <glad/glad.h>
 
-int main(int argc, const char *argv[]) {
+int main(void) {
   SDL_Init(SDL_INIT_EVERYTHING);
 
   SDL_Window *window = SDL_CreateWindow(

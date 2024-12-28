@@ -89,9 +89,8 @@ const char *post_processing_fragment =
     "    color = vec4(color_tmp);\n"
     "    color.z += 0.5;\n"
     "}\n";
-;
 
-void init_post_processing() {
+void init_post_processing(void) {
   unsigned int rect_vbo;
   glGenVertexArrays(1, &screen_rect_vao);
   glGenBuffers(1, &rect_vbo);
@@ -188,13 +187,13 @@ void init_post_processing() {
       glGetUniformLocation(post_processing_shader, "screen_resolution");
 }
 
-void post_processing_begin() {
+void post_processing_begin(void) {
   glBindFramebuffer(GL_FRAMEBUFFER, post_processing_fbo);
   //glEnable(GL_DEPTH_TEST);
   glUseProgram(program);
 }
 
-void post_processing_end() {
+void post_processing_end(void) {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   glUseProgram(post_processing_shader);
 
@@ -206,7 +205,7 @@ void post_processing_end() {
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void post_processing_cleanup() {
+void post_processing_cleanup(void) {
   glDeleteBuffers(1, &screen_rect_vbo);
   glDeleteVertexArrays(1, &screen_rect_vao);
   glDeleteProgram(post_processing_shader);

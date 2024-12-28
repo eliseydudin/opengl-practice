@@ -36,7 +36,7 @@ GLuint compile_shader(GLenum shader_type, const char *source) {
   return shader;
 }
 
-GLuint create_shader() {
+GLuint create_shader(void) {
   GLuint vertex_shader = compile_shader(GL_VERTEX_SHADER, vertex_shader_source);
   GLuint fragment_shader =
       compile_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
@@ -61,7 +61,7 @@ GLuint create_shader() {
   return program;
 }
 
-int main(int argc, const char *argv[]) {
+int main(void) {
   SDL_Init(SDL_INIT_EVERYTHING);
 
   // Use the latest (for macOS) version of OpenGL

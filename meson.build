@@ -1,11 +1,9 @@
 project('opengl-practice', 'c')
 
-dependencies = [
-    dependency('sdl2'),
-]
+dependencies = [dependency('sdl2')]
 
 if host_machine.system() == 'linux'
-    add_global_link_arguments('-lm', language: 'c')
+    add_project_link_arguments('-lm', language: 'c')
 endif
 
 subdir('glad')
